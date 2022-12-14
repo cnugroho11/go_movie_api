@@ -48,7 +48,7 @@ func init() {
 // @securityDefinitions.basic  BasicAuth
 func main() {
 	server.GET("/", func(ctx *gin.Context) {
-		ctx.Redirect(http.StatusMovedPermanently, "http://localhost:8080/docs/index.html")
+		ctx.Redirect(http.StatusMovedPermanently, "http://localhost:8000/docs/index.html")
 	})
 	server.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router := server.Group("/api")
