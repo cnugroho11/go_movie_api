@@ -1,0 +1,176 @@
+basePath: /api
+definitions:
+  models.Movie:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.MovieInput:
+    properties:
+      description:
+        type: string
+      image:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+    type: object
+  models.MovieUpdate:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: cnugroho211@gmail.com
+    name: Cahyo Nugroho
+    url: http://www.swagger.io/support
+  description: Simple api app using go, gin, and gorm.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Simple movie API
+  version: "1.0"
+paths:
+  /movie/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Fetch movie
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+      summary: Fetch movie
+      tags:
+      - GET
+  /movie/add:
+    post:
+      consumes:
+      - application/json
+      description: Insert movie data to the database
+      parameters:
+      - description: payload movie
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.MovieInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MovieInput'
+      summary: Insert movie data
+      tags:
+      - POST
+  /movie/all:
+    get:
+      consumes:
+      - application/json
+      description: Fetch all movies in database
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: sort
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+      summary: Fetch all movies
+      tags:
+      - GET
+  /movie/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Delete movie data in the database
+      parameters:
+      - description: payload movie
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.MovieUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MovieInput'
+      summary: Delete movie data
+      tags:
+      - DELETE
+  /movie/edit:
+    patch:
+      consumes:
+      - application/json
+      description: Edit movie data in the database
+      parameters:
+      - description: payload movie
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.MovieUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MovieInput'
+      summary: Edit movie data
+      tags:
+      - PATCH
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
